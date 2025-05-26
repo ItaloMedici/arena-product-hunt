@@ -1,14 +1,4 @@
-import type { Product } from "./products";
-
-export interface FetchProductsResult {
-  products: Product[];
-  pageInfo: {
-    nextCursor: string;
-    hasNextPage: boolean;
-  };
-}
-
-export interface PostsClientResponse {
+export interface PostsListClientResponse {
   posts: {
     nodes: Array<{
       id: string;
@@ -18,11 +8,22 @@ export interface PostsClientResponse {
         url: string;
       };
       votesCount: number;
-      url: string;
+      slug: string;
     }>;
     pageInfo: {
       endCursor: string;
       hasNextPage: boolean;
     };
+  };
+}
+
+export interface PostClientResponse {
+  post: {
+    name: string;
+    tagline: string;
+    description: string;
+    media: Array<{
+      url: string;
+    }>;
   };
 }

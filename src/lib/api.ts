@@ -1,54 +1,46 @@
 import type { DocumentNode } from "graphql";
-import type { PostsClientResponse } from "../interfaces/api";
-import type { Product } from "../interfaces/products";
+import type { PostsListClientResponse } from "../interfaces/api";
+import type { FetchProductsResult, Product } from "../interfaces/products";
 import { apiClient } from "./client";
 import { GET_NEWEST_PRODUCTS, GET_POPULAR_PRODUCTS } from "./queries";
 
-export interface FetchProductsResult {
-  products: Product[];
-  pageInfo: {
-    nextCursor: string;
-    hasNextPage: boolean;
+function mapProduct(
+  item: PostsListClientResponse["posts"]["nodes"][number]
+): Product {
+  return {
+    id: item.id,
+    title: item.name,
+    description: item.tagline,
+    imageUrl: item.thumbnail.url,
+    voteCount: item.votesCount,
+    voted: false,
+    slug: item.slug,
   };
 }
 
-const parseResponse = (data: PostsClientResponse) => {
-  const products = data.posts.nodes.map<Product>((item) => ({
-    description: item.tagline,
-    imageUrl: item.thumbnail.url,
-    title: item.name,
-    voteCount: item.votesCount,
-    voted: false,
-    url: item.url,
-    id: item.id,
-  }));
-
+function parseResponseList(data: PostsListClientResponse): FetchProductsResult {
+  const { endCursor, hasNextPage } = data.posts.pageInfo;
   return {
-    pageInfo: {
-      nextCursor: data.posts.pageInfo.endCursor,
-      hasNextPage: data.posts.pageInfo.hasNextPage,
-    },
-    products,
+    pageInfo: { nextCursor: endCursor, hasNextPage },
+    products: data.posts.nodes.map(mapProduct),
   };
-};
+}
 
-const fetcher = async (
+async function fetchProducts(
   query: DocumentNode,
   cursor: string | null = null
-): Promise<FetchProductsResult> => {
+): Promise<FetchProductsResult> {
   const { data } = await apiClient.query({
     query,
-    variables: {
-      after: cursor,
-    },
+    variables: { after: cursor },
   });
 
-  return parseResponse(data);
-};
+  return parseResponseList(data);
+}
 
 export const productsApi = {
-  fetchPopularProducts: (cursor: string | null = null) =>
-    fetcher(GET_POPULAR_PRODUCTS, cursor),
-  fetchNewestProducts: (cursor: string | null = null) =>
-    fetcher(GET_NEWEST_PRODUCTS, cursor),
+  fetchPopularProducts: (cursor?: string | null) =>
+    fetchProducts(GET_POPULAR_PRODUCTS, cursor ?? null),
+  fetchNewestProducts: (cursor?: string | null) =>
+    fetchProducts(GET_NEWEST_PRODUCTS, cursor ?? null),
 };
