@@ -13,6 +13,6 @@ export const MaxContentWidth = styled.div`
   }
 
   @media (min-width: 1200px) {
-    max-width: 70%;
+    max-width: 1200px;
   }
 `;
