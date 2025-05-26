@@ -10,12 +10,14 @@ type PopularContentProps = {
   products: Product[];
   setProducts: (products: Product[]) => void;
   fetcher: (cursor: string | null) => Promise<FetchProductsResult>;
+  handleVote: (index: number) => void;
 };
 
 export const ProductListContent = ({
   setProducts,
   products,
   fetcher,
+  handleVote,
 }: PopularContentProps) => {
   const nextCursorRef = useRef<string>(null);
   const hasMoreRef = useRef(true);
@@ -45,11 +47,11 @@ export const ProductListContent = ({
   return (
     <MaxContentWidth>
       <ProductsListContainer>
-        {products.map((item) => (
+        {products.map((item, index) => (
           <ProductCard
             key={item.id}
             {...item}
-            onVote={() => console.log("Voted!")}
+            onVote={() => handleVote(index)}
           />
         ))}
         <LoadMoreContainer ref={observableRef}>

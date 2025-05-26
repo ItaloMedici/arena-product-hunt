@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { HomeHeader } from "../../components/HomeHeader";
 import { ProductListContent } from "../../components/ProductListContent";
 import { Tab } from "../../components/Tab";
@@ -11,19 +11,36 @@ export const Home = () => {
     newests: [] as Product[],
   });
 
-  const handleUpdatePopularProducts = (newProducts: Product[]) => {
-    setProducts((prev) => ({
-      ...prev,
-      popular: [...prev.popular, ...newProducts],
-    }));
-  };
+  const handleUpdateProducts = useCallback(
+    (type: "popular" | "newests") => (newProducts: Product[]) => {
+      setProducts((prev) => ({
+        ...prev,
+        [type]: [...prev[type], ...newProducts],
+      }));
+    },
+    []
+  );
 
-  const handleUpdateNewestProducts = (newProducts: Product[]) => {
-    setProducts((prev) => ({
-      ...prev,
-      newests: [...prev.newests, ...newProducts],
-    }));
-  };
+  const handleVote = useCallback(
+    (type: "popular" | "newests") => (index: number) => {
+      setProducts((prev) => {
+        const updatedProducts = [...prev[type]];
+
+        updatedProducts[index].voted = !updatedProducts[index].voted;
+        updatedProducts[index].voteCount += updatedProducts[index].voted
+          ? 1
+          : -1;
+
+        console.log(updatedProducts[index].voted);
+
+        return {
+          ...prev,
+          [type]: updatedProducts,
+        };
+      });
+    },
+    [setProducts]
+  );
 
   return (
     <main>
@@ -37,7 +54,8 @@ export const Home = () => {
               <ProductListContent
                 fetcher={productsApi.fetchPopularProducts}
                 products={products.popular}
-                setProducts={handleUpdatePopularProducts}
+                setProducts={handleUpdateProducts("popular")}
+                handleVote={handleVote("popular")}
               />
             ),
             key: "popular",
@@ -48,7 +66,8 @@ export const Home = () => {
               <ProductListContent
                 fetcher={productsApi.fetchNewestProducts}
                 products={products.newests}
-                setProducts={handleUpdateNewestProducts}
+                setProducts={handleUpdateProducts("newests")}
+                handleVote={handleVote("newests")}
               />
             ),
             key: "newest",

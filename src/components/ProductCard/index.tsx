@@ -30,6 +30,11 @@ export const ProductCard = ({
   onVote,
   slug,
 }: ProductCardProps) => {
+  const handleVote = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    onVote();
+  };
+
   return (
     <CardContainer to={`/${slug}`}>
       <CardImage
@@ -44,7 +49,7 @@ export const ProductCard = ({
       <CardVoteContainer
         type="button"
         aria-pressed={voted}
-        onClick={onVote}
+        onClick={handleVote}
         aria-label="Click to vote"
       >
         <Triangle size={16} />
