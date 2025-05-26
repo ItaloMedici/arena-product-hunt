@@ -23,7 +23,6 @@ export const Tab = ({ items }: TabProps) => {
             role="tab"
             tabIndex={0}
             id={`tab-${item.key}`}
-            aria-controls={`content-${item.key}`}
             aria-selected={currentTab === index}
             onClick={() => setCurrentTab(index)}
           >
