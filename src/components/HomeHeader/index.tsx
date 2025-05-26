@@ -26,10 +26,11 @@ export const HomeHeader = () => {
             src={
               "https://plus.unsplash.com/premium_photo-1664536392896-cd1743f9c02c?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             }
+            alt="User profile"
           />
 
           <DateHeader>Today, {dateHeader}</DateHeader>
-          <SearchButton type="button">
+          <SearchButton type="button" aria-label="Search products">
             <Search />
           </SearchButton>
         </HeaderWrapper>
