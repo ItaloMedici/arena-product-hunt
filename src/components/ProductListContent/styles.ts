@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
-export const PopularListContainer = styled.div`
+export const ProductsListContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.md};

@@ -11,9 +11,13 @@ import {
 /**
  * @TODO Add search button functionality
  * @TODO Add user image functionality
- * @TODO Add date header functionality
  */
 export const HomeHeader = () => {
+  const dateHeader = new Date().toLocaleDateString("en-US", {
+    day: "2-digit",
+    month: "short",
+  });
+
   return (
     <HeaderContainer>
       <MaxContentWidth>
@@ -24,7 +28,7 @@ export const HomeHeader = () => {
             }
           />
 
-          <DateHeader>Today, 3rd Dec</DateHeader>
+          <DateHeader>Today, {dateHeader}</DateHeader>
           <SearchButton type="button">
             <Search />
           </SearchButton>
