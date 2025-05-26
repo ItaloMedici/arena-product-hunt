@@ -10,7 +10,6 @@ export const GET_POPULAR_PRODUCTS = gql`
         thumbnail {
           url
         }
-        url
         votesCount
         tagline
         name
@@ -33,7 +32,6 @@ export const GET_NEWEST_PRODUCTS = gql`
         thumbnail {
           url
         }
-        url
         votesCount
         tagline
         name
@@ -41,6 +39,19 @@ export const GET_NEWEST_PRODUCTS = gql`
       pageInfo {
         endCursor
         hasNextPage
+      }
+    }
+  }
+`;
+
+export const GET_PRODUCT_BY_SLUG = gql`
+  query Post($slug: String!) {
+    post(slug: $slug) {
+      name
+      tagline
+      description
+      media {
+        url(width: 1200)
       }
     }
   }
