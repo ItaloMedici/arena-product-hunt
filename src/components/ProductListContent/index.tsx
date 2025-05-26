@@ -52,7 +52,7 @@ export const ProductListContent = ({
           />
         ))}
         <LoadMoreContainer ref={observableRef}>
-          <Loader className="load-icon" />
+          <LoadingIcon />
           <p>Loading products...</p>
         </LoadMoreContainer>
       </ProductsListContainer>
