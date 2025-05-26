@@ -1,8 +1,7 @@
-import { Loader } from "lucide-react";
 import { useCallback, useRef } from "react";
 import { useObserver } from "../../hooks/useObserver";
-import type { Product } from "../../interfaces/products";
-import type { FetchProductsResult } from "../../lib/api";
+import type { FetchProductsResult, Product } from "../../interfaces/products";
+import { LoadingIcon } from "../LoadingIcon";
 import { MaxContentWidth } from "../MaxContentWidth";
 import { ProductCard } from "../ProductCard";
 import { LoadMoreContainer, ProductsListContainer } from "./styles";
@@ -34,6 +33,7 @@ export const ProductListContent = ({
       hasMoreRef.current = pageInfo.hasNextPage;
       nextCursorRef.current = pageInfo.nextCursor;
     } catch (error) {
+      // TODO: Handle error appropriately
       console.error("Error loading products:", error);
       hasMoreRef.current = false;
     }
@@ -41,6 +41,7 @@ export const ProductListContent = ({
 
   const observableRef = useObserver<HTMLDivElement>(loadMoreItems);
 
+  // TODO: Add virtualization to improve performance
   return (
     <MaxContentWidth>
       <ProductsListContainer>
