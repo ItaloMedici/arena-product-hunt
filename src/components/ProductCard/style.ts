@@ -1,6 +1,10 @@
+import { NavLink } from "react-router";
 import styled from "styled-components";
 
-export const CardContainer = styled.div`
+export const CardContainer = styled(NavLink)`
+  all: unset;
+  cursor: pointer;
+
   display: flex;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.background};
@@ -10,6 +14,10 @@ export const CardContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm};
+
+  &:hover {
+    box-shadow: ${({ theme }) => theme.shadows.card};
+  }
 `;
 
 export const CardImage = styled.img`

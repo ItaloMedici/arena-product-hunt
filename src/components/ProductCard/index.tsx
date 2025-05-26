@@ -16,6 +16,7 @@ type ProductCardProps = {
   title: string;
   description: string;
   onVote: () => void;
+  slug: string;
 };
 
 const FALLBACK_IMAGE = "https://via.placeholder.com/100";
@@ -27,9 +28,10 @@ export const ProductCard = ({
   title,
   description,
   onVote,
+  slug,
 }: ProductCardProps) => {
   return (
-    <CardContainer>
+    <CardContainer to={`/${slug}`}>
       <CardImage
         src={imageUrl ?? FALLBACK_IMAGE}
         alt="Product Image"
