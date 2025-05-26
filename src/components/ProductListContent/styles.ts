@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 export const ProductsListContainer = styled.div`
   display: flex;
@@ -6,15 +6,6 @@ export const ProductsListContainer = styled.div`
   gap: ${({ theme }) => theme.spacing.md};
   justify-content: center;
   margin-right: 24px;
-`;
-
-const spin = keyframes`
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 `;
 
 export const LoadMoreContainer = styled.div`
@@ -28,8 +19,4 @@ export const LoadMoreContainer = styled.div`
 
   padding: ${({ theme }) => theme.spacing.md};
   padding-bottom: ${({ theme }) => theme.spacing.lg};
-
-  .load-icon {
-    animation: ${spin} 0.8s linear infinite;
-  }
 `;
