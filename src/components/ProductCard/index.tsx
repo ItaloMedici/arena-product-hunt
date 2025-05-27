@@ -9,6 +9,8 @@ import {
   CardVoteCount,
 } from "./style";
 
+import FALLBACK_IMAGE from "../../../public/fallback-image.png";
+
 type ProductCardProps = {
   voted: boolean;
   voteCount: number;
@@ -18,8 +20,6 @@ type ProductCardProps = {
   onVote: () => void;
   slug: string;
 };
-
-const FALLBACK_IMAGE = "https://via.placeholder.com/100";
 
 export const ProductCard = ({
   voted,
