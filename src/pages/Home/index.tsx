@@ -31,8 +31,6 @@ export const Home = () => {
           ? 1
           : -1;
 
-        console.log(updatedProducts[index].voted);
-
         return {
           ...prev,
           [type]: updatedProducts,
