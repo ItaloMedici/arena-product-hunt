@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 
 .env
+/tests/*/__snapshots__/
+coverage
