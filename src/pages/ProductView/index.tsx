@@ -1,9 +1,9 @@
-import { useQuery } from "@apollo/client";
 import { ChevronLeft } from "lucide-react";
 import { NavLink, useParams } from "react-router";
 import { LoadingIcon } from "../../components/LoadingIcon";
 import { MaxContentWidth } from "../../components/MaxContentWidth";
 import type { PostClientResponse } from "../../interfaces/api";
+import { useClientQuery } from "../../lib/client";
 import { GET_PRODUCT_BY_SLUG } from "../../lib/queries";
 import {
   HeeaderContainer,
@@ -17,9 +17,12 @@ import {
 
 export const ProductView = () => {
   const { slug } = useParams();
-  const { data, loading } = useQuery<PostClientResponse>(GET_PRODUCT_BY_SLUG, {
-    variables: { slug },
-  });
+  const { data, loading } = useClientQuery<PostClientResponse>(
+    GET_PRODUCT_BY_SLUG,
+    {
+      variables: { slug },
+    }
+  );
 
   if (loading) {
     return (

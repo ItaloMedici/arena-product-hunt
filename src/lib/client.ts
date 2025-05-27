@@ -1,4 +1,9 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import {
+  ApolloClient,
+  ApolloProvider,
+  InMemoryCache,
+  useQuery,
+} from "@apollo/client";
 import { env } from "./env";
 
 export const apiClient = new ApolloClient({
@@ -10,3 +15,5 @@ export const apiClient = new ApolloClient({
 });
 
 export const ClientProvider = ApolloProvider;
+
+export const useClientQuery = useQuery;
