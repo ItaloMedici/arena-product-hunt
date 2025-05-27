@@ -1,5 +1,5 @@
 import { Icon } from "./styles";
 
 export const LoadingIcon = () => {
-  return <Icon />;
+  return <Icon aria-hidden="true" />;
 };
