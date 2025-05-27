@@ -54,10 +54,12 @@ export const ProductListContent = ({
             onVote={() => handleVote(index)}
           />
         ))}
-        <LoadMoreContainer ref={observableRef}>
-          <LoadingIcon />
-          <p>Loading products...</p>
-        </LoadMoreContainer>
+        {hasMoreRef.current && (
+          <LoadMoreContainer ref={observableRef}>
+            <LoadingIcon />
+            <p>Loading products...</p>
+          </LoadMoreContainer>
+        )}
       </ProductsListContainer>
     </MaxContentWidth>
   );
